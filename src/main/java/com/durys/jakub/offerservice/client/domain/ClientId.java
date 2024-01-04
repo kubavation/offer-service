@@ -1,4 +1,4 @@
-package com.durys.jakub.offerservice.client;
+package com.durys.jakub.offerservice.client.domain;
 
 
 import org.apache.commons.lang3.StringUtils;
