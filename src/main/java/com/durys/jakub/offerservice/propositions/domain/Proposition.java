@@ -1,8 +1,12 @@
-package com.durys.jakub.offerservice.propositions;
+package com.durys.jakub.offerservice.propositions.domain;
 
 import com.durys.jakub.offerservice.client.domain.ClientId;
 
 public class Proposition {
+
+    enum State {
+        Published, Answered
+    }
 
     private final PropositionId propositionId;
     private final ClientId clientId;

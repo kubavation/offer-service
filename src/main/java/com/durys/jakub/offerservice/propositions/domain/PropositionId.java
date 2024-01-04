@@ -1,4 +1,4 @@
-package com.durys.jakub.offerservice.propositions;
+package com.durys.jakub.offerservice.propositions.domain;
 
 import java.util.UUID;
 
