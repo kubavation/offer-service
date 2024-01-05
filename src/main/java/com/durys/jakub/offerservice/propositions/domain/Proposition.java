@@ -11,10 +11,12 @@ public class Proposition {
     private final PropositionId propositionId;
     private final ClientId clientId;
     private final Details details;
+    private final PublicationDate publicationDate;
 
-    public Proposition(PropositionId propositionId, ClientId clientId, Details details) {
+    Proposition(PropositionId propositionId, ClientId clientId, Details details, PublicationDate publicationDate) {
         this.propositionId = propositionId;
         this.clientId = clientId;
         this.details = details;
+        this.publicationDate = publicationDate;
     }
 }
