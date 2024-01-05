@@ -36,7 +36,7 @@ public class Client {
     public void markAsRegularClient() {
 
         if (type == Type.Regular) {
-            throw new DomainException("Client is already marked as VIP");
+            throw new DomainException("Client is already marked as Regular");
         }
 
         type = Type.Regular;
