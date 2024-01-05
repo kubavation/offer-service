@@ -1,6 +1,5 @@
 package com.durys.jakub.offerservice.client.domain;
 
-
 import com.durys.jakub.offerservice.common.DomainValidationException;
 import org.apache.commons.lang3.StringUtils;
 

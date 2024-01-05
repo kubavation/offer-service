@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Client {
 
-    enum Type {
+    public enum Type {
         Vip, Regular
     }
 
@@ -16,5 +16,17 @@ public class Client {
     Client(ClientId clientId, Type type) {
         this.clientId = clientId;
         this.type = type;
+    }
+
+    public void grantRebate(Rebate rebate) {
+        rebates.add(rebate);
+    }
+
+    public void markAsVipClient() {
+        this.type = Type.Vip;
+    }
+
+    public void markAsRegularClient() {
+        this.type = Type.Regular;
     }
 }
