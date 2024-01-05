@@ -1,5 +1,6 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.common.DomainValidationException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -24,12 +25,12 @@ class RebateTest {
 
         BigDecimal zeroAmount = BigDecimal.ZERO;
 
-        assertThrows(RuntimeException.class, () -> new Rebate(zeroAmount));
+        assertThrows(DomainValidationException.class, () -> new Rebate(zeroAmount));
     }
 
     @Test
     void shouldNotCreateRebateWhenAmountIsNull() {
-        assertThrows(RuntimeException.class, () -> new Rebate(null));
+        assertThrows(DomainValidationException.class, () -> new Rebate(null));
     }
 
 }
