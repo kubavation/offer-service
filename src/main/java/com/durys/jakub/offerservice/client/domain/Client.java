@@ -1,5 +1,7 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.common.DomainException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,20 @@ public class Client {
     }
 
     public void markAsVipClient() {
-        this.type = Type.Vip;
+
+        if (type == Type.Vip) {
+            throw new DomainException("Client is already marked as VIP");
+        }
+
+        type = Type.Vip;
     }
 
     public void markAsRegularClient() {
-        this.type = Type.Regular;
+
+        if (type == Type.Regular) {
+            throw new DomainException("Client is already marked as VIP");
+        }
+
+        type = Type.Regular;
     }
 }
