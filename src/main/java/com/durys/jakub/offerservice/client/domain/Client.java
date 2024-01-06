@@ -2,6 +2,7 @@ package com.durys.jakub.offerservice.client.domain;
 
 import com.durys.jakub.offerservice.common.DomainException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,10 @@ public class Client {
         this.type = type;
     }
 
-    public void grantRebate(Rebate rebate) {
+    public void grantRebate(BigDecimal amount) {
+
+        Rebate rebate = new Rebate(amount);
+
         rebates.add(rebate);
     }
 
