@@ -5,6 +5,7 @@ import com.durys.jakub.offerservice.common.DomainException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Client {
 
@@ -21,11 +22,16 @@ public class Client {
         this.type = type;
     }
 
+
     public void grantRebate(BigDecimal amount) {
 
-        Rebate rebate = new Rebate(amount);
+        Rebate rebate = new Rebate(UUID.randomUUID(), amount);
 
         rebates.add(rebate);
+    }
+
+    public void removeRebate(UUID rebateId) {
+        rebates.removeIf(rebate -> rebate.id().equals(rebateId));
     }
 
     public void markAsVipClient() {
