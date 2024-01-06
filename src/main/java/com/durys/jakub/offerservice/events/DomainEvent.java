@@ -1,4 +1,4 @@
-package com.durys.jakub.offerservice.ddd;
+package com.durys.jakub.offerservice.events;
 
 import java.time.Instant;
 
