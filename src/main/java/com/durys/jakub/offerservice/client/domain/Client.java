@@ -1,5 +1,6 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.client.domain.event.RebateGranted;
 import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
@@ -32,6 +33,7 @@ public class Client extends AggregateRoot {
 
         rebates.add(new Rebate(rebateId, amount));
 
+        apply(new RebateGranted(rebateId, amount));
         return rebateId;
     }
 
