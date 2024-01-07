@@ -23,11 +23,13 @@ public class Client {
     }
 
 
-    public void grantRebate(BigDecimal amount) {
+    public UUID grantRebate(BigDecimal amount) {
 
-        Rebate rebate = new Rebate(UUID.randomUUID(), amount);
+        var rebateId = UUID.randomUUID();
 
-        rebates.add(rebate);
+        rebates.add(new Rebate(rebateId, amount));
+
+        return rebateId;
     }
 
     public void removeRebate(UUID rebateId) {
