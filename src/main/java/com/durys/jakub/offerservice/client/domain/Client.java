@@ -18,7 +18,7 @@ public class Client {
     private Type type;
     private final List<Rebate> rebates = new ArrayList<>();
 
-    Client(ClientId clientId, Type type) {
+    public Client(ClientId clientId, Type type) {
         this.clientId = clientId;
         this.type = type;
     }
@@ -55,7 +55,7 @@ public class Client {
         type = Type.Regular;
     }
 
-    List<Rebate> rebates() {
+    public List<Rebate> rebates() {
         return rebates;
     }
 

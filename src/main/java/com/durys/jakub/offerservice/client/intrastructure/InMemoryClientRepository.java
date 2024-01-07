@@ -25,4 +25,8 @@ public class InMemoryClientRepository implements ClientRepository {
     public void save(Client client) {
         DB.put(client.id(), client);
     }
+
+    public void clear() {
+        DB.clear();
+    }
 }
