@@ -4,6 +4,7 @@ import com.durys.jakub.offerservice.common.DomainValidationException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +15,7 @@ class RebateTest {
 
         BigDecimal validAmount = new BigDecimal("50");
 
-        Rebate rebate = new Rebate(validAmount);
+        Rebate rebate = new Rebate(UUID.randomUUID(), validAmount);
 
         assertNotNull(rebate);
         assertEquals(validAmount, rebate.amount());
@@ -25,12 +26,12 @@ class RebateTest {
 
         BigDecimal zeroAmount = BigDecimal.ZERO;
 
-        assertThrows(DomainValidationException.class, () -> new Rebate(zeroAmount));
+        assertThrows(DomainValidationException.class, () -> new Rebate(UUID.randomUUID(), zeroAmount));
     }
 
     @Test
     void shouldNotCreateRebateWhenAmountIsNull() {
-        assertThrows(DomainValidationException.class, () -> new Rebate(null));
+        assertThrows(DomainValidationException.class, () -> new Rebate(UUID.randomUUID(), null));
     }
 
 }
