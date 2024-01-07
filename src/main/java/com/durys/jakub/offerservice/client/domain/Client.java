@@ -51,4 +51,12 @@ public class Client {
 
         type = Type.Regular;
     }
+
+    List<Rebate> rebates() {
+        return rebates;
+    }
+
+    Type type() {
+        return type;
+    }
 }
