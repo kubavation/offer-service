@@ -8,6 +8,10 @@ import java.util.UUID;
 
 public record Rebate(UUID id, BigDecimal amount) {
 
+    public Rebate(BigDecimal amount) {
+        this(UUID.randomUUID(), amount);
+    }
+
     public Rebate {
 
         if (Objects.isNull(id)) {
