@@ -2,9 +2,7 @@ package com.durys.jakub.offerservice.events.outbox;
 
 import com.durys.jakub.offerservice.events.DomainEvent;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.Instant;
@@ -15,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OutboxServiceTest {
 
-    class MockEvent implements DomainEvent {
+    private class MockEvent implements DomainEvent {
 
         @Override
         public Instant at() {
@@ -23,11 +21,11 @@ class OutboxServiceTest {
         }
     }
 
-    private EventsRepository eventsRepository = new InMemoryEventsRepository();
+    private final EventsRepository eventsRepository = new InMemoryEventsRepository();
 
-    private ApplicationEventPublisher applicationEventPublisher = Mockito.mock(ApplicationEventPublisher.class);
+    private final ApplicationEventPublisher applicationEventPublisher = Mockito.mock(ApplicationEventPublisher.class);
 
-    private OutboxService outboxService = new OutboxService(eventsRepository, applicationEventPublisher);
+    private final OutboxService outboxService = new OutboxService(eventsRepository, applicationEventPublisher);
 
     @Test
     void shouldSendEvents() {
