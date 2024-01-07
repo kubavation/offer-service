@@ -1,14 +1,16 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.client.domain.event.RebateGranted;
 import com.durys.jakub.offerservice.common.DomainException;
+import com.durys.jakub.offerservice.ddd.AggregateRoot;
+import com.durys.jakub.offerservice.events.EventPublisher;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Client {
-
+public class Client extends AggregateRoot {
 
     public enum Type {
         Vip, Regular
@@ -18,7 +20,8 @@ public class Client {
     private Type type;
     private final List<Rebate> rebates = new ArrayList<>();
 
-    public Client(ClientId clientId, Type type) {
+    public Client(ClientId clientId, Type type, EventPublisher eventPublisher) {
+        super(eventPublisher);
         this.clientId = clientId;
         this.type = type;
     }
@@ -30,6 +33,7 @@ public class Client {
 
         rebates.add(new Rebate(rebateId, amount));
 
+        apply(new RebateGranted(rebateId, amount));
         return rebateId;
     }
 
