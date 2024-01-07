@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public class Client {
 
-
     public enum Type {
         Vip, Regular
     }
