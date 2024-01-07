@@ -59,7 +59,7 @@ public class Client {
         return rebates;
     }
 
-    Type type() {
+    public Type type() {
         return type;
     }
 

@@ -1,7 +1,10 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.ddd.DomainPolicy;
+
 import java.math.BigDecimal;
 
+@DomainPolicy
 class DefaultRebatePolicy implements RebatePolicy {
 
     @Override
