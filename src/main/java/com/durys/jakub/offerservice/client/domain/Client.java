@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class Client {
 
+
     public enum Type {
         Vip, Regular
     }
@@ -60,5 +61,9 @@ public class Client {
 
     Type type() {
         return type;
+    }
+
+    public ClientId id() {
+        return clientId;
     }
 }

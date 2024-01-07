@@ -27,7 +27,7 @@ class ClientTest {
         Client client = new Client(new ClientId("Client1"), Client.Type.Regular);
         BigDecimal rebateAmount = new BigDecimal("10.00");
         UUID rebateId = client.grantRebate(rebateAmount);
-        
+
         assertEquals(1, client.rebates().size());
 
         client.removeRebate(rebateId);
