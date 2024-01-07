@@ -1,6 +1,7 @@
 package com.durys.jakub.offerservice.client.application;
 
 import com.durys.jakub.offerservice.client.domain.Client;
+import com.durys.jakub.offerservice.client.domain.ClientFactory;
 import com.durys.jakub.offerservice.client.domain.ClientId;
 import com.durys.jakub.offerservice.client.domain.ClientRepository;
 import com.durys.jakub.offerservice.client.domain.command.GrantRebateCommand;
@@ -20,13 +21,16 @@ class ClientApplicationServiceTest {
     private ClientRepository clientRepository;
 
     @Autowired
+    private ClientFactory clientFactory;
+
+    @Autowired
     private ClientApplicationService clientApplicationService;
 
 
     @Test
     void shouldGrantRebate_whenAmountIsSpecified() {
 
-        Client client = new Client(new ClientId(UUID.randomUUID().toString()), Client.Type.Vip);
+        Client client = clientFactory.create(UUID.randomUUID().toString(), Client.Type.Vip);
         clientRepository.save(client);
 
         assertTrue(client.rebates().isEmpty());
@@ -41,7 +45,7 @@ class ClientApplicationServiceTest {
     @Test
     void shouldGrantRebate_whenAmountIsNotSpecified() {
 
-        Client client = new Client(new ClientId(UUID.randomUUID().toString()), Client.Type.Vip);
+        Client client = clientFactory.create(UUID.randomUUID().toString(), Client.Type.Vip);
         clientRepository.save(client);
 
         assertTrue(client.rebates().isEmpty());
