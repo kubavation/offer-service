@@ -1,5 +1,6 @@
 package com.durys.jakub.offerservice.offer.domain;
 
+import com.durys.jakub.offerservice.client.domain.ClientId;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
 import com.durys.jakub.offerservice.subsystem.SubsystemCode;
@@ -29,5 +30,13 @@ public class Offer extends AggregateRoot {
         this.details = new Details(name, description);
         this.subsystemCode = subsystemCode;
         this.state = State.Submitted;
+    }
+
+    public void publish(ClientId client) {
+        //todo
+    }
+
+    public void remove() {
+        //todo
     }
 }
