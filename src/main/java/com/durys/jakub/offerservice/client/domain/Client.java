@@ -1,6 +1,8 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.client.domain.event.ClientStatusChanged;
 import com.durys.jakub.offerservice.client.domain.event.RebateGranted;
+import com.durys.jakub.offerservice.client.domain.event.RebateRemoved;
 import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
@@ -33,12 +35,16 @@ public class Client extends AggregateRoot {
 
         rebates.add(new Rebate(rebateId, amount));
 
-        apply(new RebateGranted(rebateId, amount));
+        apply(new RebateGranted(clientId, rebateId, amount));
+
         return rebateId;
     }
 
     public void removeRebate(UUID rebateId) {
-        rebates.removeIf(rebate -> rebate.id().equals(rebateId));
+        rebates
+            .removeIf(rebate -> rebate.id().equals(rebateId));
+
+        apply(new RebateRemoved(clientId, rebateId));
     }
 
     public void markAsVipClient() {
@@ -48,6 +54,7 @@ public class Client extends AggregateRoot {
         }
 
         type = Type.Vip;
+        apply(new ClientStatusChanged(clientId, type));
     }
 
     public void markAsRegularClient() {
@@ -57,6 +64,7 @@ public class Client extends AggregateRoot {
         }
 
         type = Type.Regular;
+        apply(new ClientStatusChanged(clientId, type));
     }
 
     public List<Rebate> rebates() {

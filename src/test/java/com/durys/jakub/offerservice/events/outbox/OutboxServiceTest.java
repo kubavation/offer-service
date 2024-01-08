@@ -31,8 +31,9 @@ class OutboxServiceTest {
     void shouldSendEvents() {
 
         List<DomainEvent> mockEvents = Arrays.asList(new MockEvent(), new MockEvent());
+
         mockEvents.stream()
-                    .forEach(event -> eventsRepository.save(event));
+                    .forEach(eventsRepository::save);
 
         outboxService.sendEvents();
 
