@@ -33,7 +33,7 @@ public class Client extends AggregateRoot {
 
         rebates.add(new Rebate(rebateId, amount));
 
-        apply(new RebateGranted(rebateId, amount));
+        apply(new RebateGranted(clientId, rebateId, amount));
         return rebateId;
     }
 
