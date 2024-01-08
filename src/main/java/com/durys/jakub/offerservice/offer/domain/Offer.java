@@ -28,5 +28,6 @@ public class Offer extends AggregateRoot {
         this.offerId = new OfferId(UUID.randomUUID());
         this.details = new Details(name, description);
         this.subsystemCode = subsystemCode;
+        this.state = State.Submitted;
     }
 }
