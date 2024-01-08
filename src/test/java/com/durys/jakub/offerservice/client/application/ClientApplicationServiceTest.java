@@ -5,7 +5,10 @@ import com.durys.jakub.offerservice.client.domain.ClientFactory;
 import com.durys.jakub.offerservice.client.domain.ClientId;
 import com.durys.jakub.offerservice.client.domain.ClientRepository;
 import com.durys.jakub.offerservice.client.domain.command.GrantRebateCommand;
+import com.durys.jakub.offerservice.client.domain.command.MarkClientAsRegularCommand;
+import com.durys.jakub.offerservice.client.domain.command.MarkClientAsVipCommand;
 import com.durys.jakub.offerservice.client.domain.command.RemoveRebateCommand;
+import com.durys.jakub.offerservice.common.DomainException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,6 +74,56 @@ class ClientApplicationServiceTest {
 
         Client loaded = clientRepository.load(client.id());
         assertTrue(loaded.rebates().isEmpty());
+    }
+
+    @Test
+    void shouldMarkClientAsVip() {
+
+        Client client = clientFactory.create(UUID.randomUUID().toString(), Client.Type.Regular);
+        clientRepository.save(client);
+
+        var command = new MarkClientAsVipCommand(client.id());
+        clientApplicationService.handle(command);
+
+        Client loaded = clientRepository.load(client.id());
+        assertEquals(Client.Type.Vip, loaded.type());
+    }
+
+    @Test
+    void shouldNotMarkClientAsVip() {
+
+        Client client = clientFactory.create(UUID.randomUUID().toString(), Client.Type.Vip);
+        clientRepository.save(client);
+
+        var command = new MarkClientAsVipCommand(client.id());
+        DomainException exception = assertThrows(DomainException.class, () -> clientApplicationService.handle(command));
+
+        assertEquals("Client is already marked as VIP", exception.getMessage());
+    }
+
+    @Test
+    void shouldMarkClientAsRegular() {
+
+        Client client = clientFactory.create(UUID.randomUUID().toString(), Client.Type.Vip);
+        clientRepository.save(client);
+
+        var command = new MarkClientAsRegularCommand(client.id());
+        clientApplicationService.handle(command);
+
+        Client loaded = clientRepository.load(client.id());
+        assertEquals(Client.Type.Regular, loaded.type());
+    }
+
+    @Test
+    void shouldNotMarkClientAsRegular() {
+
+        Client client = clientFactory.create(UUID.randomUUID().toString(), Client.Type.Regular);
+        clientRepository.save(client);
+
+        var command = new MarkClientAsRegularCommand(client.id());
+        DomainException exception = assertThrows(DomainException.class, () -> clientApplicationService.handle(command));
+
+        assertEquals("Client is already marked as Regular", exception.getMessage());
     }
 
 }

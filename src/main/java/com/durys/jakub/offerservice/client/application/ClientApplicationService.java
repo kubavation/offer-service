@@ -3,6 +3,8 @@ package com.durys.jakub.offerservice.client.application;
 import com.durys.jakub.offerservice.client.domain.Client;
 import com.durys.jakub.offerservice.client.domain.ClientRepository;
 import com.durys.jakub.offerservice.client.domain.RebatePolicy;
+import com.durys.jakub.offerservice.client.domain.command.MarkClientAsRegularCommand;
+import com.durys.jakub.offerservice.client.domain.command.MarkClientAsVipCommand;
 import com.durys.jakub.offerservice.client.domain.command.GrantRebateCommand;
 import com.durys.jakub.offerservice.client.domain.command.RemoveRebateCommand;
 import com.durys.jakub.offerservice.ddd.ApplicationService;
@@ -41,6 +43,24 @@ public class ClientApplicationService {
         Client client = clientRepository.load(command.clientId());
 
         client.removeRebate(command.rebateId());
+
+        clientRepository.save(client);
+    }
+
+    public void handle(MarkClientAsVipCommand command) {
+
+        Client client = clientRepository.load(command.clientId());
+
+        client.markAsVipClient();
+
+        clientRepository.save(client);
+    }
+
+    public void handle(MarkClientAsRegularCommand command) {
+
+        Client client = clientRepository.load(command.clientId());
+
+        client.markAsRegularClient();
 
         clientRepository.save(client);
     }

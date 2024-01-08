@@ -1,5 +1,6 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.client.domain.event.ClientStatusChanged;
 import com.durys.jakub.offerservice.client.domain.event.RebateGranted;
 import com.durys.jakub.offerservice.client.domain.event.RebateRemoved;
 import com.durys.jakub.offerservice.common.DomainException;
@@ -53,6 +54,7 @@ public class Client extends AggregateRoot {
         }
 
         type = Type.Vip;
+        apply(new ClientStatusChanged(clientId, type));
     }
 
     public void markAsRegularClient() {
@@ -62,6 +64,7 @@ public class Client extends AggregateRoot {
         }
 
         type = Type.Regular;
+        apply(new ClientStatusChanged(clientId, type));
     }
 
     public List<Rebate> rebates() {
