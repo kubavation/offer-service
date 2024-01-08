@@ -1,4 +1,4 @@
-package com.durys.jakub.offerservice.offer;
+package com.durys.jakub.offerservice.offer.domain;
 
 import com.durys.jakub.offerservice.common.DomainValidationException;
 

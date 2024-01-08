@@ -1,4 +1,4 @@
-package com.durys.jakub.offerservice.offer;
+package com.durys.jakub.offerservice.offer.domain;
 
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
