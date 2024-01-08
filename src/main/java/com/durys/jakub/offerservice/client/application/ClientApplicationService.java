@@ -4,6 +4,7 @@ import com.durys.jakub.offerservice.client.domain.Client;
 import com.durys.jakub.offerservice.client.domain.ClientRepository;
 import com.durys.jakub.offerservice.client.domain.RebatePolicy;
 import com.durys.jakub.offerservice.client.domain.command.GrantRebateCommand;
+import com.durys.jakub.offerservice.client.domain.command.RemoveRebateCommand;
 import com.durys.jakub.offerservice.ddd.ApplicationService;
 
 import java.util.Objects;
@@ -31,6 +32,15 @@ public class ClientApplicationService {
         }
 
         client.grantRebate(rebateAmount);
+
+        clientRepository.save(client);
+    }
+
+    public void handle(RemoveRebateCommand command) {
+
+        Client client = clientRepository.load(command.clientId());
+
+        client.removeRebate(command.rebateId());
 
         clientRepository.save(client);
     }
