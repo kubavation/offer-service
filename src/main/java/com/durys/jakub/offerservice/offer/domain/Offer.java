@@ -1,9 +1,11 @@
 package com.durys.jakub.offerservice.offer.domain;
 
 import com.durys.jakub.offerservice.client.domain.ClientId;
+import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
 import com.durys.jakub.offerservice.offer.domain.event.OfferPublished;
+import com.durys.jakub.offerservice.offer.domain.event.OfferRemoved;
 import com.durys.jakub.offerservice.subsystem.SubsystemCode;
 
 import java.util.UUID;
@@ -36,11 +38,19 @@ public class Offer extends AggregateRoot {
     }
 
     public void publishTo(ClientId client) {
+
         apply(new OfferPublished(offerId, client));
     }
 
     public void remove() {
-        //todo
+
+        if (state == State.Removed) {
+            throw new DomainException("Cannot remove offer");
+        }
+
+        state = State.Removed;
+
+        apply(new OfferRemoved(offerId));
     }
 
     public OfferId id() {

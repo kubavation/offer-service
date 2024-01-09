@@ -5,6 +5,7 @@ import com.durys.jakub.offerservice.offer.domain.Offer;
 import com.durys.jakub.offerservice.offer.domain.OfferFactory;
 import com.durys.jakub.offerservice.offer.domain.OfferRepository;
 import com.durys.jakub.offerservice.offer.domain.command.PublishOfferCommand;
+import com.durys.jakub.offerservice.offer.domain.command.RemoveOfferCommand;
 import com.durys.jakub.offerservice.offer.domain.command.SubmitOfferCommand;
 
 @ApplicationService
@@ -25,12 +26,20 @@ public class OfferApplicationService {
         offerRepository.save(offer);
     }
 
-    //transactional
     void handle(PublishOfferCommand command) {
 
         Offer offer = offerRepository.load(command.offerId());
 
         offer.publishTo(command.clientId());
+
+        offerRepository.save(offer);
+    }
+
+    void handle(RemoveOfferCommand command) {
+
+        Offer offer = offerRepository.load(command.offerId());
+
+        offer.remove();
 
         offerRepository.save(offer);
     }
