@@ -42,4 +42,8 @@ public class Offer extends AggregateRoot {
     public void remove() {
         //todo
     }
+
+    public OfferId id() {
+        return offerId;
+    }
 }
