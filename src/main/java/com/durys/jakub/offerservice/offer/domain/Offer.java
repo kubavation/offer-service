@@ -22,6 +22,8 @@ public class Offer extends AggregateRoot {
     private Price price;
     private State state;
 
+    //todo local state of clients?
+
     Offer(EventPublisher eventPublisher, OfferId offerId, SubsystemCode subsystemCode) {
         super(eventPublisher);
         this.offerId = offerId;
