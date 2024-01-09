@@ -35,7 +35,7 @@ public class Offer extends AggregateRoot {
         this.state = State.Submitted;
     }
 
-    public void publish(ClientId client) {
+    public void publishTo(ClientId client) {
         apply(new OfferPublished(offerId, client));
     }
 
