@@ -3,6 +3,7 @@ package com.durys.jakub.offerservice.offer.domain;
 import com.durys.jakub.offerservice.client.domain.ClientId;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
+import com.durys.jakub.offerservice.offer.domain.event.OfferPublished;
 import com.durys.jakub.offerservice.subsystem.SubsystemCode;
 
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class Offer extends AggregateRoot {
     }
 
     public void publish(ClientId client) {
-        //todo
+        apply(new OfferPublished(offerId, client));
     }
 
     public void remove() {
