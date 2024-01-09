@@ -4,6 +4,8 @@ import com.durys.jakub.offerservice.ddd.DomainFactory;
 import com.durys.jakub.offerservice.events.EventPublisher;
 import com.durys.jakub.offerservice.subsystem.SubsystemCode;
 
+import java.math.BigDecimal;
+
 @DomainFactory
 public class OfferFactory {
 
@@ -13,8 +15,8 @@ public class OfferFactory {
         this.eventPublisher = eventPublisher;
     }
 
-    public Offer create(String name, String description, SubsystemCode subsystem) {
-        return new Offer(name, description, subsystem, eventPublisher);
+    public Offer create(String name, String description, SubsystemCode subsystem, BigDecimal price) {
+        return new Offer(name, description, subsystem, new Price(price), eventPublisher);
     }
 
 }

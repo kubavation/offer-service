@@ -17,6 +17,7 @@ public class Offer extends AggregateRoot {
     private final OfferId offerId;
     private final SubsystemCode subsystemCode;
     private Details details;
+    private Price price;
     private State state;
 
     Offer(EventPublisher eventPublisher, OfferId offerId, SubsystemCode subsystemCode) {
@@ -25,11 +26,12 @@ public class Offer extends AggregateRoot {
         this.subsystemCode = subsystemCode;
     }
 
-    Offer(String name, String description, SubsystemCode subsystemCode, EventPublisher eventPublisher) {
+    Offer(String name, String description, SubsystemCode subsystemCode, Price price, EventPublisher eventPublisher) {
         super(eventPublisher);
         this.offerId = new OfferId(UUID.randomUUID());
         this.details = new Details(name, description);
         this.subsystemCode = subsystemCode;
+        this.price = price;
         this.state = State.Submitted;
     }
 
