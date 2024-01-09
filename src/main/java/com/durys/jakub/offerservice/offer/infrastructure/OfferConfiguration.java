@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class OfferConfiguration {
-    
+
     @Bean
     OfferRepository offerRepository() {
         return new InMemoryOfferRepository();
