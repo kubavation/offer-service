@@ -8,8 +8,10 @@ import com.durys.jakub.offerservice.offer.domain.event.OfferPriceChanged;
 import com.durys.jakub.offerservice.offer.domain.event.OfferPublished;
 import com.durys.jakub.offerservice.offer.domain.event.OfferRemoved;
 import com.durys.jakub.offerservice.subsystem.SubsystemCode;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
+import java.util.Set;
 import java.util.UUID;
 
 public class Offer extends AggregateRoot {
@@ -41,9 +43,19 @@ public class Offer extends AggregateRoot {
         this.state = State.Submitted;
     }
 
-    public void publishTo(ClientId client) {
+    public void publishTo(Set<ClientId> clients) {
 
-        apply(new OfferPublished(offerId, client));
+        if (state == State.Removed) {
+            throw new DomainException("Cannot publish an offer");
+        }
+
+        if (CollectionUtils.isEmpty(clients)) {
+            throw new DomainException("Invalid defined clients");
+        }
+
+        clients
+            .stream()
+            .forEach(client -> new OfferPublished(offerId, client));
     }
 
     public void changePrice(BigDecimal price) {
