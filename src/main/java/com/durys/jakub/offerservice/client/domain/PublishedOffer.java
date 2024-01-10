@@ -1,5 +1,6 @@
 package com.durys.jakub.offerservice.client.domain;
 
+import com.durys.jakub.offerservice.client.domain.event.PublishedOfferAccepted;
 import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
@@ -41,7 +42,12 @@ public class PublishedOffer extends AggregateRoot {
     }
 
     public void accept() {
-        //todo
+
+        if (state != State.New) {
+            throw new DomainException("Cannot accept offer");
+        }
+
+        apply(new PublishedOfferAccepted(id));
     }
 
 
