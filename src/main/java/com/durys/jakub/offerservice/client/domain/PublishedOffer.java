@@ -41,13 +41,17 @@ public class PublishedOffer extends AggregateRoot {
         this.state = State.New;
     }
 
+    public void changePrice(Rebate rebate) {
+        //todo
+    }
+
     public void accept() {
 
         if (state != State.New) {
             throw new DomainException("Cannot accept offer");
         }
 
-        apply(new PublishedOfferAccepted(id));
+        apply(new PublishedOfferAccepted(id, price));
     }
 
 
