@@ -28,7 +28,9 @@ public class Client extends AggregateRoot {
         this.type = type;
     }
 
-    public void accept(PublishedOffer offer) {
+    public void accept(PublishedOffer offer, UUID rebate) {
+
+        //todo
 
     }
 
