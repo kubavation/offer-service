@@ -55,7 +55,7 @@ public class Offer extends AggregateRoot {
 
         clients
             .stream()
-            .forEach(client -> new OfferPublished(offerId, client));
+            .forEach(client -> new OfferPublished(offerId, client, price));
     }
 
     public void changePrice(BigDecimal price) {
