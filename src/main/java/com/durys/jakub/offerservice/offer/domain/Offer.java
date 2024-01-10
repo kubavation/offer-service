@@ -4,10 +4,12 @@ import com.durys.jakub.offerservice.client.domain.ClientId;
 import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
+import com.durys.jakub.offerservice.offer.domain.event.OfferPriceChanged;
 import com.durys.jakub.offerservice.offer.domain.event.OfferPublished;
 import com.durys.jakub.offerservice.offer.domain.event.OfferRemoved;
 import com.durys.jakub.offerservice.subsystem.SubsystemCode;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Offer extends AggregateRoot {
@@ -44,8 +46,15 @@ public class Offer extends AggregateRoot {
         apply(new OfferPublished(offerId, client));
     }
 
-    public void changePrice() {
+    public void changePrice(BigDecimal price) {
 
+        if (state == State.Removed) {
+            throw new DomainException("Cannot change price of offer");
+        }
+
+        this.price = new Price(price);
+
+        apply(new OfferPriceChanged(offerId, this.price));
     }
 
     public void remove() {

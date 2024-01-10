@@ -4,6 +4,7 @@ import com.durys.jakub.offerservice.ddd.ApplicationService;
 import com.durys.jakub.offerservice.offer.domain.Offer;
 import com.durys.jakub.offerservice.offer.domain.OfferFactory;
 import com.durys.jakub.offerservice.offer.domain.OfferRepository;
+import com.durys.jakub.offerservice.offer.domain.command.ChangeOfferPriceCommand;
 import com.durys.jakub.offerservice.offer.domain.command.PublishOfferCommand;
 import com.durys.jakub.offerservice.offer.domain.command.RemoveOfferCommand;
 import com.durys.jakub.offerservice.offer.domain.command.SubmitOfferCommand;
@@ -40,6 +41,15 @@ public class OfferApplicationService {
         Offer offer = offerRepository.load(command.offerId());
 
         offer.remove();
+
+        offerRepository.save(offer);
+    }
+
+    void handle(ChangeOfferPriceCommand command) {
+
+        Offer offer = offerRepository.load(command.offerId());
+
+        offer.changePrice(command.price());
 
         offerRepository.save(offer);
     }
