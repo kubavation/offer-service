@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class PublishedOffer extends AggregateRoot {
 
+
     public record Id(OfferId offerId, ClientId clientId) {
 
         public Id {
@@ -32,6 +33,11 @@ public class PublishedOffer extends AggregateRoot {
 
     public void accept() {
         //todo
+    }
+
+
+    public Id id() {
+        return id;
     }
 
 }
