@@ -44,6 +44,10 @@ public class Offer extends AggregateRoot {
         apply(new OfferPublished(offerId, client));
     }
 
+    public void changePrice() {
+
+    }
+
     public void remove() {
 
         if (state == State.Removed) {

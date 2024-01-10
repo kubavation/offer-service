@@ -13,8 +13,6 @@ class OfferEventHandler {
         this.publishedOfferRepository = publishedOfferRepository;
     }
 
-    //todo handler
     void handle(OfferPublished offerPublished) {
-        //todo
     }
 }
