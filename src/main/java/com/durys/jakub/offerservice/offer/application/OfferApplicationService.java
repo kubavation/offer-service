@@ -31,7 +31,7 @@ public class OfferApplicationService {
 
         Offer offer = offerRepository.load(command.offerId());
 
-        offer.publishTo(command.clientId());
+        offer.publishTo(command.clientIds());
 
         offerRepository.save(offer);
     }
