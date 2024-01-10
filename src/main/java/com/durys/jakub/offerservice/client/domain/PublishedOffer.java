@@ -10,6 +10,10 @@ import java.util.Objects;
 
 public class PublishedOffer extends AggregateRoot {
 
+    public enum State {
+        New, Accepted
+    }
+
 
     public record Id(OfferId offerId, ClientId clientId) {
 
@@ -27,11 +31,13 @@ public class PublishedOffer extends AggregateRoot {
 
     private final Id id;
     private Price price;
+    private State state;
 
     PublishedOffer(Id id, Price price, EventPublisher eventPublisher) {
         super(eventPublisher);
         this.id = id;
         this.price = price;
+        this.state = State.New;
     }
 
     public void accept() {

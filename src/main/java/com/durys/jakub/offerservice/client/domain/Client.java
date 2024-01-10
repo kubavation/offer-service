@@ -28,6 +28,9 @@ public class Client extends AggregateRoot {
         this.type = type;
     }
 
+    public void accept(PublishedOffer offer) {
+
+    }
 
     public UUID grantRebate(BigDecimal amount) {
 
