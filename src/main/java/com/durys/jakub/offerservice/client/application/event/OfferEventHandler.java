@@ -14,5 +14,8 @@ class OfferEventHandler {
     }
 
     void handle(OfferPublished offerPublished) {
+
+
+
     }
 }

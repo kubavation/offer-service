@@ -4,6 +4,7 @@ import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
 import com.durys.jakub.offerservice.offer.domain.OfferId;
+import com.durys.jakub.offerservice.offer.domain.Price;
 
 import java.util.Objects;
 
@@ -25,10 +26,12 @@ public class PublishedOffer extends AggregateRoot {
     }
 
     private final Id id;
+    private Price price;
 
-    PublishedOffer(Id id, EventPublisher eventPublisher) {
+    PublishedOffer(Id id, Price price, EventPublisher eventPublisher) {
         super(eventPublisher);
         this.id = id;
+        this.price = price;
     }
 
     public void accept() {
@@ -39,5 +42,6 @@ public class PublishedOffer extends AggregateRoot {
     public Id id() {
         return id;
     }
+
 
 }
