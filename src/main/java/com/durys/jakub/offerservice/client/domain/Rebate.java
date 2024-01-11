@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
-public record Rebate(UUID id, BigDecimal amount) {
+public record Rebate(RebateId id, BigDecimal amount) {
 
     public Rebate(BigDecimal amount) {
-        this(UUID.randomUUID(), amount);
+        this(new RebateId(UUID.randomUUID()), amount);
     }
 
     public Rebate {
