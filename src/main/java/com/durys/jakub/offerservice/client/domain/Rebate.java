@@ -6,10 +6,14 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
-public record Rebate(UUID id, BigDecimal amount) {
+public record Rebate(RebateId id, BigDecimal amount) {
+
+    public Rebate(UUID id, BigDecimal amount) {
+        this(new RebateId(id), amount);
+    }
 
     public Rebate(BigDecimal amount) {
-        this(UUID.randomUUID(), amount);
+        this(new RebateId(UUID.randomUUID()), amount);
     }
 
     public Rebate {
@@ -21,5 +25,9 @@ public record Rebate(UUID id, BigDecimal amount) {
         if (Objects.isNull(amount) || amount.compareTo(BigDecimal.ZERO) < 1) {
             throw new DomainValidationException("Invalid rebate amount");
         }
+    }
+
+    BigDecimal calculate(BigDecimal price) {
+        return amount.multiply(price);
     }
 }
