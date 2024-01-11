@@ -52,7 +52,7 @@ public class Client extends AggregateRoot {
         return rebateId;
     }
 
-    public void removeRebate(UUID rebateId) {
+    public void removeRebate(RebateId rebateId) {
         rebates
             .removeIf(rebate -> rebate.id().equals(rebateId));
 
