@@ -26,4 +26,8 @@ public record Rebate(RebateId id, BigDecimal amount) {
             throw new DomainValidationException("Invalid rebate amount");
         }
     }
+
+    BigDecimal calculate(BigDecimal price) {
+        return amount.multiply(price);
+    }
 }

@@ -42,7 +42,12 @@ public class PublishedOffer extends AggregateRoot {
     }
 
     public void changePrice(Rebate rebate) {
-        //todo
+
+        if (state != State.New) {
+            throw new DomainException("Cannot accept offer");
+        }
+
+        this.price = new Price(rebate.calculate(price.amount()));
     }
 
     public void accept() {

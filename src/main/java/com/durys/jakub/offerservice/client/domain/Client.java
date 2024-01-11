@@ -38,7 +38,9 @@ public class Client extends AggregateRoot {
 
         var rebateId = UUID.randomUUID();
 
-        rebates.add(new Rebate(rebateId, amount));
+        rebates.add(
+            new Rebate(rebateId, amount)
+        );
 
         apply(new RebateGranted(clientId, rebateId, amount));
 
