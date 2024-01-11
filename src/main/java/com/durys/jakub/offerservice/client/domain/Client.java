@@ -10,6 +10,7 @@ import com.durys.jakub.offerservice.events.EventPublisher;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Client extends AggregateRoot {
@@ -28,10 +29,14 @@ public class Client extends AggregateRoot {
         this.type = type;
     }
 
-    public void accept(PublishedOffer offer, UUID rebate) {
+    public void accept(PublishedOffer offer, RebateId rebateId) {
 
-        //todo
+        if (Objects.nonNull(rebateId)) {
+            Rebate rebate = load(rebateId);
+            offer.changePrice(rebate);
+        }
 
+        offer.accept();
     }
 
     public UUID grantRebate(BigDecimal amount) {
@@ -84,5 +89,12 @@ public class Client extends AggregateRoot {
 
     public ClientId id() {
         return clientId;
+    }
+
+    Rebate load(RebateId rebateId) {
+        return rebates.stream()
+                .filter(rebate -> rebate.id().equals(rebateId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Rebate not found"));
     }
 }
