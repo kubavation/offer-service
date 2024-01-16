@@ -17,6 +17,7 @@ import java.util.UUID;
 
 public class Client extends AggregateRoot {
 
+
     public enum Type {
         Vip, Regular
     }
@@ -34,8 +35,8 @@ public class Client extends AggregateRoot {
     public void accept(PublishedOffer offer, RebateId rebateId) {
 
         if (Objects.nonNull(rebateId)) {
-            Rebate rebate = load(rebateId);
-            offer.changePrice(rebate);
+            Rebate rebate = findRebate(rebateId);
+            offer.apply(rebate);
         }
 
         offer.accept();
@@ -93,7 +94,8 @@ public class Client extends AggregateRoot {
         return clientId;
     }
 
-    Rebate load(RebateId rebateId) {
+
+    public Rebate findRebate(RebateId rebateId) {
         return rebates.stream()
                 .filter(rebate -> rebate.id().equals(rebateId))
                 .findFirst()
