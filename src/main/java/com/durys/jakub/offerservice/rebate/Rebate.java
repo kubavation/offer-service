@@ -1,4 +1,4 @@
-package com.durys.jakub.offerservice.client.domain;
+package com.durys.jakub.offerservice.rebate;
 
 import com.durys.jakub.offerservice.common.DomainValidationException;
 
@@ -27,7 +27,7 @@ public record Rebate(RebateId id, BigDecimal amount) {
         }
     }
 
-    BigDecimal calculate(BigDecimal price) {
+    public BigDecimal calculate(BigDecimal price) {
         return amount.multiply(price);
     }
 }

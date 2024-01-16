@@ -6,6 +6,7 @@ import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
 import com.durys.jakub.offerservice.offer.domain.OfferId;
 import com.durys.jakub.offerservice.offer.domain.Price;
+import com.durys.jakub.offerservice.rebate.Rebate;
 
 import java.util.Objects;
 
@@ -41,7 +42,7 @@ public class PublishedOffer extends AggregateRoot {
         this.state = State.New;
     }
 
-    public void changePrice(Rebate rebate) {
+    public void apply(Rebate rebate) {
 
         if (state != State.New) {
             throw new DomainException("Cannot accept offer");

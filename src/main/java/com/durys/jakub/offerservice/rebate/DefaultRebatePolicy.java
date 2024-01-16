@@ -1,5 +1,6 @@
-package com.durys.jakub.offerservice.client.domain;
+package com.durys.jakub.offerservice.rebate;
 
+import com.durys.jakub.offerservice.client.domain.Client;
 import com.durys.jakub.offerservice.ddd.DomainPolicy;
 
 import java.math.BigDecimal;

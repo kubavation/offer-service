@@ -6,6 +6,8 @@ import com.durys.jakub.offerservice.client.domain.event.RebateRemoved;
 import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
+import com.durys.jakub.offerservice.rebate.Rebate;
+import com.durys.jakub.offerservice.rebate.RebateId;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Client extends AggregateRoot {
+
 
     public enum Type {
         Vip, Regular
@@ -29,15 +32,6 @@ public class Client extends AggregateRoot {
         this.type = type;
     }
 
-    public void accept(PublishedOffer offer, RebateId rebateId) {
-
-        if (Objects.nonNull(rebateId)) {
-            Rebate rebate = load(rebateId);
-            offer.changePrice(rebate);
-        }
-
-        offer.accept();
-    }
 
     public UUID grantRebate(BigDecimal amount) {
 
@@ -57,6 +51,15 @@ public class Client extends AggregateRoot {
             .removeIf(rebate -> rebate.id().equals(rebateId));
 
         apply(new RebateRemoved(clientId, rebateId));
+    }
+
+    public Rebate useRebate(RebateId rebateId) {
+
+        Rebate rebate = findRebate(rebateId);
+
+        removeRebate(rebateId);
+
+        return rebate;
     }
 
     public void markAsVipClient() {
@@ -91,7 +94,8 @@ public class Client extends AggregateRoot {
         return clientId;
     }
 
-    Rebate load(RebateId rebateId) {
+
+    public Rebate findRebate(RebateId rebateId) {
         return rebates.stream()
                 .filter(rebate -> rebate.id().equals(rebateId))
                 .findFirst()

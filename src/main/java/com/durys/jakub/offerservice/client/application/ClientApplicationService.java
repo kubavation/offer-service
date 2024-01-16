@@ -2,11 +2,11 @@ package com.durys.jakub.offerservice.client.application;
 
 import com.durys.jakub.offerservice.client.domain.Client;
 import com.durys.jakub.offerservice.client.domain.ClientRepository;
-import com.durys.jakub.offerservice.client.domain.RebatePolicy;
-import com.durys.jakub.offerservice.client.domain.command.MarkClientAsRegularCommand;
-import com.durys.jakub.offerservice.client.domain.command.MarkClientAsVipCommand;
-import com.durys.jakub.offerservice.client.domain.command.GrantRebateCommand;
-import com.durys.jakub.offerservice.client.domain.command.RemoveRebateCommand;
+import com.durys.jakub.offerservice.client.domain.PublishedOffer;
+import com.durys.jakub.offerservice.client.domain.PublishedOfferRepository;
+import com.durys.jakub.offerservice.client.domain.command.*;
+import com.durys.jakub.offerservice.rebate.Rebate;
+import com.durys.jakub.offerservice.rebate.RebatePolicy;
 import com.durys.jakub.offerservice.ddd.ApplicationService;
 
 import java.util.Objects;
@@ -15,10 +15,12 @@ import java.util.Objects;
 public class ClientApplicationService {
 
     private final ClientRepository clientRepository;
+    private final PublishedOfferRepository publishedOfferRepository;
     private final RebatePolicy rebatePolicy;
 
-    public ClientApplicationService(ClientRepository clientRepository, RebatePolicy rebatePolicy) {
+    ClientApplicationService(ClientRepository clientRepository, PublishedOfferRepository publishedOfferRepository, RebatePolicy rebatePolicy) {
         this.clientRepository = clientRepository;
+        this.publishedOfferRepository = publishedOfferRepository;
         this.rebatePolicy = rebatePolicy;
     }
 
@@ -63,6 +65,22 @@ public class ClientApplicationService {
         client.markAsRegularClient();
 
         clientRepository.save(client);
+    }
+
+    public void handle(AcceptOfferCommand command) {
+
+        Client client = clientRepository.load(command.clientId());
+
+        PublishedOffer offer = publishedOfferRepository.load(new PublishedOffer.Id(command.offerId(), command.clientId()));
+
+        if (command.rebateUsed()) {
+            Rebate rebate = client.useRebate(command.rebateId());
+            offer.apply(rebate);
+        }
+
+        offer.accept();
+
+        publishedOfferRepository.save(offer);
     }
 
 }
