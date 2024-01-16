@@ -27,7 +27,7 @@ public record Rebate(RebateId id, BigDecimal amount) {
         }
     }
 
-    BigDecimal calculate(BigDecimal price) {
+    public BigDecimal calculate(BigDecimal price) {
         return amount.multiply(price);
     }
 }
