@@ -74,7 +74,7 @@ public class ClientApplicationService {
         PublishedOffer offer = publishedOfferRepository.load(new PublishedOffer.Id(command.offerId(), command.clientId()));
 
         if (command.rebateUsed()) {
-            Rebate rebate = client.findRebate(command.rebateId());
+            Rebate rebate = client.useRebate(command.rebateId());
             offer.apply(rebate);
         }
 

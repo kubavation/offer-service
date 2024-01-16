@@ -53,6 +53,15 @@ public class Client extends AggregateRoot {
         apply(new RebateRemoved(clientId, rebateId));
     }
 
+    public Rebate useRebate(RebateId rebateId) {
+
+        Rebate rebate = findRebate(rebateId);
+
+        removeRebate(rebateId);
+
+        return rebate;
+    }
+
     public void markAsVipClient() {
 
         if (type == Type.Vip) {
