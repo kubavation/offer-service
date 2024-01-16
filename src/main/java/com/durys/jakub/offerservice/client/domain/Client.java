@@ -32,15 +32,6 @@ public class Client extends AggregateRoot {
         this.type = type;
     }
 
-    public void accept(PublishedOffer offer, RebateId rebateId) {
-
-        if (Objects.nonNull(rebateId)) {
-            Rebate rebate = findRebate(rebateId);
-            offer.apply(rebate);
-        }
-
-        offer.accept();
-    }
 
     public UUID grantRebate(BigDecimal amount) {
 
