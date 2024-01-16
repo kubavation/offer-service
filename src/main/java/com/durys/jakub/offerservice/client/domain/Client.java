@@ -6,6 +6,8 @@ import com.durys.jakub.offerservice.client.domain.event.RebateRemoved;
 import com.durys.jakub.offerservice.common.DomainException;
 import com.durys.jakub.offerservice.ddd.AggregateRoot;
 import com.durys.jakub.offerservice.events.EventPublisher;
+import com.durys.jakub.offerservice.rebate.Rebate;
+import com.durys.jakub.offerservice.rebate.RebateId;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

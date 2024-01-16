@@ -1,6 +1,7 @@
 package com.durys.jakub.offerservice.client.domain;
 
 import com.durys.jakub.offerservice.common.DomainValidationException;
+import com.durys.jakub.offerservice.rebate.Rebate;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
