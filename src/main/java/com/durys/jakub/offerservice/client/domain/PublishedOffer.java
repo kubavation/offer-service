@@ -45,7 +45,7 @@ public class PublishedOffer extends AggregateRoot {
     public void apply(Rebate rebate) {
 
         if (state != State.New) {
-            throw new DomainException("Cannot accept offer");
+            throw new DomainException("Cannot apply rebate");
         }
 
         this.price = new Price(rebate.calculate(price.amount()));
